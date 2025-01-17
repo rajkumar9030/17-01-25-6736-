@@ -1,0 +1,146 @@
+@ 1. create table emp
+
+import mysql.connector as c
+mydb=c.connect(
+    host="localhost",
+    user="root",
+    password="1234",
+    database="cvr"
+)
+print("success")
+mycursor=mydb.cursor()
+mycursor.execute("create table emp(eid int,ename varchar(20),esal int ,ecity varchar(20))")
+
+
+C:\Users\CVR\Desktop\12-12-24(22B81A6736)>C:/Users/CVR/AppData/Local/Programs/Python/Python312/python.exe "c:/Users/CVR/Desktop/12-12-24(22B81A6736)/database-connection.py"
+success
+
+
+
+@ 2.insert in to table by dynamic input
+
+
+id=input("enter your id :")
+name =input("enter your name :")
+sal=input("enter employee salary :")
+city=input("enter employee city :")
+mycursor.execute("insert into emp values(%s,%s,%s,%s)",(id,name,sal,city))
+
+
+C:\Users\CVR\Desktop\12-12-24(22B81A6736)>C:/Users/CVR/AppData/Local/Programs/Python/Python312/python.exe "c:/Users/CVR/Desktop/12-12-24(22B81A6736)/database-connection.py"
+success
+enter your id :283
+enter your name :hi
+enter employee salary :8000
+enter employee city :los vegas
+
+
+
+@ 3.delete student details with dynamic input
+
+delete_id=input("enter student details to be deleted by which  id")
+mycursor.execute("delete from emp where eid=%s",(delete_id,))
+mycursor.execute("select * from emp")
+result=mycursor.fetchall()
+for i in result:
+    print(i)
+
+
+C:\Users\CVR\Desktop\12-12-24(22B81A6736)>C:/Users/CVR/AppData/Local/Programs/Python/Python312/python.exe "c:/Users/CVR/Desktop/12-12-24(22B81A6736)/database-connection.py"
+success
+enter student details to be deleted by which  id2
+(283, 'hi', 8000, 'los vegas')
+(3, 'Tom Brown', 55000, 'Chicago')
+(4, 'Sara White', 70000, 'San Francisco')
+(5, 'Mike Johnson', 45000, 'Miami')
+(6, 'Alice Green', 7000, 'New York')
+(7, 'David Black', 8000, 'Los Angeles')
+(8, 'Emma Davis', 7500, 'Chicago')
+(9, 'James Wilson', 6500, 'San Francisco')
+(10, 'Sophia Lee', 8500, 'Miami')
+(11, 'Liam Walker', 7000, 'New York')
+(12, 'Olivia Harris', 9000, 'Los Angeles')
+(13, 'Noah Clark', 6500, 'Chicago')
+(14, 'Ava Lewis', 8000, 'San Francisco')
+(15, 'Mason Hall', 6700, 'Miami')
+
+
+
+@ 4.update eployee details with dynamic input
+
+update_id=input("enter id by which it shoud be updated")
+mycursor.execute("update emp set ename='kia'where eid=%s",(update_id,) )
+mycursor.execute("select *from emp where ename='kia'")
+result=mycursor.fetchall()
+for i in result:
+    print(i)
+
+
+C:\Users\CVR\Desktop\12-12-24(22B81A6736)>C:/Users/CVR/AppData/Local/Programs/Python/Python312/python.exe "c:/Users/CVR/Desktop/12-12-24(22B81A6736)/database-connection.py"
+success
+enter id by which it shoud be updated3
+(3, 'kia', 55000, 'Chicago')
+
+
+
+@ 5.display names of employee in ascending order
+
+mycursor.execute("select *from emp  order by ename ASC")
+result=mycursor.fetchall()
+for i in result:
+    print(i)
+
+
+C:\Users\CVR\Desktop\12-12-24(22B81A6736)>C:/Users/CVR/AppData/Local/Programs/Python/Python312/python.exe "c:/Users/CVR/Desktop/12-12-24(22B81A6736)/database-connection.py"
+success
+(6, 'Alice Green', 7000, 'New York')
+(14, 'Ava Lewis', 8000, 'San Francisco')
+(7, 'David Black', 8000, 'Los Angeles')
+(8, 'Emma Davis', 7500, 'Chicago')
+(283, 'hi', 8000, 'los vegas')
+(9, 'James Wilson', 6500, 'San Francisco')
+(3, 'kia', 55000, 'Chicago')
+(11, 'Liam Walker', 7000, 'New York')
+(15, 'Mason Hall', 6700, 'Miami')
+(5, 'Mike Johnson', 45000, 'Miami')
+(13, 'Noah Clark', 6500, 'Chicago')
+(12, 'Olivia Harris', 9000, 'Los Angeles')
+(4, 'Sara White', 70000, 'San Francisco')
+(10, 'Sophia Lee', 8500, 'Miami')
+
+@ 6.display employee details with salary between 7000 and 9000
+
+mycursor.execute("select * from emp where esal between 7000 and 9000")
+result=mycursor.fetchall()
+for i in result:
+    print(i)
+
+
+C:\Users\CVR\Desktop\12-12-24(22B81A6736)>C:/Users/CVR/AppData/Local/Programs/Python/Python312/python.exe "c:/Users/CVR/Desktop/12-12-24(22B81A6736)/database-connection.py"
+success
+(283, 'hi', 8000, 'los vegas')
+(6, 'Alice Green', 7000, 'New York')
+(7, 'David Black', 8000, 'Los Angeles')
+(8, 'Emma Davis', 7500, 'Chicago')
+(10, 'Sophia Lee', 8500, 'Miami')
+(11, 'Liam Walker', 7000, 'New York')
+
+
+
+
+@ 7.display employee deatils whose city is miami
+
+mycursor.execute("select * from emp  where ecity='Miami'")
+result=mycursor.fetchall()
+for i in result:
+    print(i)
+mydb.commit()
+
+C:\Users\CVR\Desktop\12-12-24(22B81A6736)>C:/Users/CVR/AppData/Local/Programs/Python/Python312/python.exe "c:/Users/CVR/Desktop/12-12-24(22B81A6736)/database-connection.py"
+success
+(5, 'Mike Johnson', 45000, 'Miami')
+(10, 'Sophia Lee', 8500, 'Miami')
+(15, 'Mason Hall', 6700, 'Miami')
+
+(12, 'Olivia Harris', 9000, 'Los Angeles')
+(14, 'Ava Lewis', 8000, 'San Francisco')
